@@ -24,6 +24,15 @@ var estado = document.getElementById("estado");
 
 function alertar(){
 
+// formatação dos dados
+cep.value = cep.value.replace('-','');
+
+// validação de dados
+if(cep.value.lenght < 8){
+  alert("Entre com um CEP válido!");
+  return;
+}
+
 //buscar o endereço pelo cep
 const url = `https://viacep.com.br/ws/${cep.value}/json`;
 
@@ -32,25 +41,32 @@ fetch(url)
 .then(data => {
   logradouro.value = data.logradouro;
   bairro.value = data.bairro;
-  cidade.value = data.cidade;
+  cidade.value = data.localidade;
   estado.value = data.uf;
 
-
-
-
-
-    //alert(nome.value + " " + "clicou no botão!!!");
-    saida.innerText = "Nome: " + " " + nome.value + 
-                "\nE-mail: " + " " + email.value +
-                "\nTelefone: " + " " + telefone.value +
-                "\nCEP: " + " " + cep.value +
-                "\nLogradouro: " + " " + logradouro.value +
-                "\nNumero: " + " " + numero.value +
-                "\nComplemento: " + " " + complemento.value +
-                "\nBairro: " + " " + bairro.value +
-                "\nCidade: " + " " + cidade.value +
-                "\nEstado: " + " " + estado.value;
+    saidaDeDados(); //chamada da função
+ 
 
 })
-.catch(error=>alert(error))
+.catch(error=>alert(error.message()))
+//alert(nome.value + " " + "clicou no botão!!!");
 }
+
+function saidaDeDados(){
+saida.innerText = "Nome: " + " " + nome.value + 
+  "\nE-mail: " + " " + email.value +
+  "\nTelefone: " + " " + telefone.value +
+  "\nCEP: " + " " + cep.value +
+  "\nLogradouro: " + " " + logradouro.value +
+  "\nNumero: " + " " + numero.value +
+  "\nComplemento: " + " " + complemento.value +
+  "\nBairro: " + " " + bairro.value +
+  "\nCidade: " + " " + cidade.value +
+  "\nEstado: " + " " + estado.value;
+
+
+
+}
+
+
+
